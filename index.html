@@ -235,7 +235,8 @@
         <a class="chip" href="https://www.scienceopen.com/user/normanwagner"><span class="dot"></span>ScienceOpen</a>
         <a class="chip" href="mailto:norman.wagner@posteo.com"><span class="dot"></span>E-mail</a>
       </div>
-      <p class="id-stats">≈ <a href="https://www.researchgate.net/profile/Norman-Wagner">1,524 citations</a> · 119 listed works · <span class="note">as of June 2026 · source: ResearchGate</span></p>
+      <!-- <p class="id-stats">≈ <a href="https://www.researchgate.net/profile/Norman-Wagner">1,524 citations</a> · 119 listed works · <span class="note">as of June 2026 · source: ResearchGate</span></p> -->
+      <p class="id-stats" id="oa-stats">≈ <a href="https://orcid.org/0000-0001-5416-7162">1,524 citations</a> · 119 listed works · <span class="note">Quelle: ResearchGate</span></p>
     </div>
   </div>
 </header>
@@ -725,6 +726,26 @@
   q.addEventListener('input', function(){ state.q = q.value.trim().toLowerCase(); apply(); });
 
   apply();
+})();
+</script>
+  
+<script>
+(function(){
+  var ORCID="0000-0001-5416-7162", EMAIL="norman.wagner@posteo.com";
+  fetch("https://api.openalex.org/authors/orcid:"+ORCID+"?mailto="+encodeURIComponent(EMAIL))
+    .then(function(r){ return r.ok ? r.json() : Promise.reject(r.status); })
+    .then(function(d){
+      if(!d || typeof d.cited_by_count!=="number") return;
+      var cites=d.cited_by_count.toLocaleString("de-DE");
+      var works=(d.works_count||0).toLocaleString("de-DE");
+      var stand=new Date().toLocaleDateString("de-DE",{year:"numeric",month:"long"});
+      var id=d.id ? d.id.split("/").pop() : "";
+      var el=document.getElementById("oa-stats");
+      if(el) el.innerHTML='<a href="https://openalex.org/authors/'+id+'">'+cites+
+        ' Zitationen</a> · '+works+' Werke · <span class="note">Stand '+stand+
+        ' · Quelle: OpenAlex</span>';
+    })
+    .catch(function(){ /* Abruf fehlgeschlagen: statische Zahl bleibt unverändert stehen */ });
 })();
 </script>
 </body>
