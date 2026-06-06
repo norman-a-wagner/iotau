@@ -736,8 +736,8 @@
     .then(function(r){ return r.ok ? r.json() : Promise.reject(r.status); })
     .then(function(d){
       if(!d || typeof d.cited_by_count!=="number") return;
-      var cites=d.cited_by_count.toLocaleString("de-DE");
-      var works=(d.works_count||0).toLocaleString("de-DE");
+      var cites=d.cited_by_count.toLocaleString("en-GB");
+      var works=(d.works_count||0).toLocaleString("en-GB");
       var stand=new Date().toLocaleDateString("en-GB",{year:"numeric",month:"long"});
       var id=d.id ? d.id.split("/").pop() : "";
       var el=document.getElementById("oa-stats");
