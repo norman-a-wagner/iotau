@@ -742,8 +742,8 @@
       var id=d.id ? d.id.split("/").pop() : "";
       var el=document.getElementById("oa-stats");
       if(el) el.innerHTML='<a href="https://openalex.org/authors/'+id+'">'+cites+
-        ' Zitationen</a> · '+works+' Werke · <span class="note">Stand '+stand+
-        ' · Quelle: OpenAlex</span>';
+        ' Citation </a> · '+works+' Peer Reviewed Works · <span class="note">Count '+stand+
+        ' · Source: OpenAlex</span>';
     })
     .catch(function(){ /* Abruf fehlgeschlagen: statische Zahl bleibt unverändert stehen */ });
 })();
