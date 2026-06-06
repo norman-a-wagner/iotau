@@ -742,7 +742,7 @@
       var id=d.id ? d.id.split("/").pop() : "";
       var el=document.getElementById("oa-stats");
       if(el) el.innerHTML='<a href="https://openalex.org/authors/'+id+'">'+cites+
-        ' Citation </a> · '+works+' Peer Reviewed Works · <span class="note">Count '+stand+
+        ' Citation </a> · '+works+' Works Cited · <span class="note">Count '+stand+
         ' · Source: OpenAlex</span>';
     })
     .catch(function(){ /* Abruf fehlgeschlagen: statische Zahl bleibt unverändert stehen */ });
