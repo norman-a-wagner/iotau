@@ -738,7 +738,7 @@
       if(!d || typeof d.cited_by_count!=="number") return;
       var cites=d.cited_by_count.toLocaleString("de-DE");
       var works=(d.works_count||0).toLocaleString("de-DE");
-      var stand=new Date().toLocaleDateString("de-DE",{year:"numeric",month:"long"});
+      var stand=new Date().toLocaleDateString("den-GB",{year:"numeric",month:"long"});
       var id=d.id ? d.id.split("/").pop() : "";
       var el=document.getElementById("oa-stats");
       if(el) el.innerHTML='<a href="https://openalex.org/authors/'+id+'">'+cites+
