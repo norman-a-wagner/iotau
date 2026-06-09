@@ -2,5 +2,7 @@ A static website featuring the scientific work of Dr. rer. nat. Norman Wagner. P
 
 https://norman-a-wagner.github.io/iotau
 
+https://norman-a-wagner.github.io/iotau/collaboration-network.html
+
 ---
 © Norman Wagner — scientific works
