@@ -4,5 +4,7 @@ https://norman-a-wagner.github.io/iotau
 
 https://norman-a-wagner.github.io/iotau/collaboration-network.html
 
+https://norman-a-wagner.github.io/iotau/collaboration-worldmap.html
+
 ---
 © Norman Wagner — scientific works
