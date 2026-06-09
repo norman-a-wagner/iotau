@@ -1,4 +1,4 @@
-A static website featuring the scientific work of Norman Wagner. Pure HTML/CSS/JS, no build steps, no server required—can be published directly via GitHub Pages.
+A static website featuring the scientific work.
 
 https://norman-a-wagner.github.io/iotau
 
