@@ -1,0 +1,47 @@
+# GitHub-Actions-Workflow
+# Speicherort im Repository:  .github/workflows/update-citation-map.yml
+#
+# Führt citation_worldmap.py automatisch aus (monatlich + manuell),
+# erzeugt citation-worldmap.html neu und committet die Änderungen zurück.
+# Bei "Pages: Deploy from a branch" wird die Website danach automatisch aktualisiert.
+
+name: Update citation world map
+
+on:
+  schedule:
+    - cron: "0 4 1 * *"      # monatlich am 1. um 04:00 UTC
+  workflow_dispatch: {}        # zusätzlich manuell über den "Actions"-Tab auslösbar
+
+permissions:
+  contents: write              # nötig, um die erzeugte Datei zurück-zu-committen
+
+concurrency:
+  group: citation-map
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v4
+
+      - name: Python einrichten
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Citation-Worldmap erzeugen
+        run: python3 citation_worldmap.py
+
+      - name: Änderungen committen (falls vorhanden)
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add citation-worldmap.html citation_by_country.json citation_by_country.csv
+          if git diff --cached --quiet; then
+            echo "Keine Änderungen – nichts zu committen."
+          else
+            git commit -m "chore: update citation world map ($(date -u +%Y-%m-%d))"
+            git push
+          fi
