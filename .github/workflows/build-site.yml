@@ -1,0 +1,47 @@
+# GitHub-Actions-Workflow
+# Speicherort im Repository:  .github/workflows/build-site.yml
+#
+# Erzeugt alle drei Visualisierungsseiten mit build_site.py (monatlich + manuell)
+# und committet die Änderungen zurück. Loest den alten update-citation-map.yml ab
+# (diesen bitte loeschen, damit nicht zwei Workflows dieselben Dateien schreiben).
+
+name: Build visualisation pages
+
+on:
+  schedule:
+    - cron: "0 4 1 * *"      # monatlich am 1. um 04:00 UTC
+  workflow_dispatch: {}        # zusaetzlich manuell ausloesbar
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-site
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v4
+
+      - name: Python einrichten
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Seiten erzeugen
+        run: python3 build_site.py
+
+      - name: Aenderungen committen (falls vorhanden)
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add collaboration-network.html collaboration-worldmap.html citation-worldmap.html citation_by_country.json citation_by_country.csv
+          if git diff --cached --quiet; then
+            echo "Keine Aenderungen - nichts zu committen."
+          else
+            git commit -m "chore: rebuild visualisation pages ($(date -u +%Y-%m-%d))"
+            git push
+          fi
