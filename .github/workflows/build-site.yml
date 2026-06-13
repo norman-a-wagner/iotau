@@ -2,7 +2,7 @@
 # Speicherort im Repository:  .github/workflows/build-site.yml
 #
 # Erzeugt alle drei Visualisierungsseiten mit build_site.py (monatlich + manuell)
-# und committet die Änderungen zurück. Loest den alten update-citation-map.yml ab
+# und committet die Aenderungen zurueck. Loest den alten update-citation-map.yml ab
 # (diesen bitte loeschen, damit nicht zwei Workflows dieselben Dateien schreiben).
 
 name: Build visualisation pages
@@ -24,10 +24,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Repository auschecken
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Python einrichten
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
@@ -38,7 +38,7 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add collaboration-network.html collaboration-worldmap.html citation-worldmap.html citation_by_country.json citation_by_country.csv
+          git add collaboration-network.html collaboration-worldmap.html citation-worldmap.html
           if git diff --cached --quiet; then
             echo "Keine Aenderungen - nichts zu committen."
           else
