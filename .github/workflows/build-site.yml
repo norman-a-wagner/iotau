@@ -2,8 +2,7 @@
 # Speicherort im Repository:  .github/workflows/build-site.yml
 #
 # Erzeugt alle drei Visualisierungsseiten mit build_site.py (monatlich + manuell)
-# und committet die Aenderungen zurueck. Loest den alten update-citation-map.yml ab
-# (diesen bitte loeschen, damit nicht zwei Workflows dieselben Dateien schreiben).
+# und committet die Aenderungen zurueck.
 
 name: Build visualisation pages
 
